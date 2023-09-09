@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'react-native';
+import styled from 'styled-components/native';
 
-export default function App() {
+import TasksList from './components/TasksList';
+
+import { Provider } from 'react-redux';
+import store from './store';
+
+const MainRoot = styled.View`
+  padding-bottom: 0;
+`;
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <Provider store={store}>
+        <MainRoot>
+          <TasksList />
+        </MainRoot>
+
+        <StatusBar hidden={true} />
+      </Provider>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
