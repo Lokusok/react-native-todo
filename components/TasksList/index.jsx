@@ -1,31 +1,24 @@
 import React from 'react';
 
-import Task from '../Task';
-import Header from '../Header';
-
-import styled from 'styled-components/native';
+import List from '../List';
 
 import { useSelector } from 'react-redux';
-
-const Wrapper = styled.FlatList`
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-`;
+import { useRoute } from '@react-navigation/native';
 
 function TasksList() {
-  const tasks = useSelector((state) => state.tasks.items);
+  const route = useRoute();
+  const category = route.params.category;
 
-  return (
-    <Wrapper
-      data={tasks}
-      renderItem={({ item }) => (
-        <Task id={item.id} title={item.title} isCompleted={item.isCompleted} />
-      )}
-      ListHeaderComponent={<Header title={'React Todo App'} />}
-      ListHeaderComponentStyle={{ marginBottom: 20 }}
-    />
-  );
+  const tasks = useSelector((state) => {
+    switch (category) {
+      case 'all':
+        return state.tasks.items;
+      case 'completed':
+        return state.tasks.items.filter((item) => item.isCompleted);
+    }
+  });
+
+  return <List category={category} tasks={tasks} />;
 }
 
 export default TasksList;

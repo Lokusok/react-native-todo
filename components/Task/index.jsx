@@ -43,10 +43,10 @@ const DeleteButton = styled.TouchableOpacity`
 
 Task.propTypes = {
   title: PropTypes.string.isRequired,
-  isCompleted: PropTypes.boolean,
+  isCompleted: PropTypes.bool,
 };
 
-function Task({ id, title, isCompleted }) {
+function Task({ category, id, title, isCompleted }) {
   const dispatch = useDispatch();
 
   const handleMainContentClick = () => {
@@ -63,9 +63,16 @@ function Task({ id, title, isCompleted }) {
 
   return (
     <TaskBlock>
-      <MainContent onPress={handleMainContentClick}>
+      <MainContent
+        disabled={category !== 'all'}
+        onPress={handleMainContentClick}
+      >
         <CheckBoxBlock>
-          <CheckBox value={isCompleted} onValueChange={handleChange} />
+          <CheckBox
+            disabled={category !== 'all'}
+            value={isCompleted}
+            onValueChange={handleChange}
+          />
         </CheckBoxBlock>
 
         <TaskTitle isCompleted={isCompleted}>{title}</TaskTitle>

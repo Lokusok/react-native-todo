@@ -31,14 +31,14 @@ const TopBlock = styled.View`
 
 function AddBlock() {
   const dispatch = useDispatch();
-  const [newTodoText, setNewTodoText] = React.useState();
+  const [newTodoText, setNewTodoText] = React.useState('');
 
   const handleChange = (value) => {
     setNewTodoText(value);
   };
 
   const handleAddClick = () => {
-    const newTodo = { id: 17, title: newTodoText, isCompleted: false };
+    const newTodo = { id: 7, title: newTodoText, isCompleted: false };
     dispatch(addTodo(newTodo));
 
     setNewTodoText('');
